@@ -215,10 +215,16 @@ Port-forward the application kubectl port-forward -n fe svc/frontend-service 808
 Visit localhost:8080 and interact with the model.
 
 ## Limitations and future work
-chained ,models
-grafana
-ingress
-batch jobs
+Some caveats and limitations of the current guide include:
+- Postgres installation: a production-ready deployment needs to account for space allocation, high availability, and replicas. The approach of this guide serves as an initial step, but the configuration should be further customised.
+- MinIO installation: the recommended way for a production set-up is using the Operator.
+- Ingress controller: Both your MLFlow server as well as your models should be available for your data scientists, who might not have direct access to the cluster. Installing an ingress for the tracking server and some authentication gives access to the platform. Enabling Ambassador or Istio in your Seldon installation automatically creates an ingress for your models.
+- Observability: Monitoring your models is as crucial as monitoring any other microservice. Seldon provides a way to do so by sending metrics to a Prometheus instance which can be connected to Grafana as well. This is a crucial topic in MLOps, which deserves its own article.
+- Batch jobs: Our current platform is useful for online models. For batch processing jobs further work needs to be done. Seldon provides an easy way to integrate with KubeFlow, Argo, and other ML Pipeline tools.
+
+Some interesting topics for the future include
+- Inference graphs: A powerful tool of Seldon deployments is building complex inference graphs that permit chain, combine, and route models.
+- Custom inference servers: Some models are not MLFlow compatible, or require beta/nightly versions of some packages, so using prepackaged servers is not enough. Building your own inference server gives you the power to fully specify how to load models, what to run, and how to serve.
 
 ## Resources
 - Seldon-Core documentation: https://docs.pytest.org/en/7.2.x/
