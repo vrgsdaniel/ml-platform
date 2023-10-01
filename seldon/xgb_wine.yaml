@@ -1,0 +1,16 @@
+apiVersion: machinelearning.seldon.io/v1alpha2
+kind: SeldonDeployment
+metadata:
+  name: xgb-wine-k8s
+  namespace: ml-models
+spec:
+  name: xgb-wines
+  predictors:
+    - graph:
+        children: []
+        envSecretRefName: seldon-init-container-secret
+        implementation: XGBOOST_SERVER
+        modelUri: s3://models/2/12f4f11316914e669733544324d1acc1/artifacts/xgb_wine/model/
+        name: classifier
+      name: default
+      replicas: 1

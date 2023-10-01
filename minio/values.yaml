@@ -1,0 +1,4 @@
+buckets:
+  - name: models
+    purge: false
+    policy: public

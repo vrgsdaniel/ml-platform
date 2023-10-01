@@ -1,0 +1,20 @@
+@startuml  
+!theme cerulean
+actor "User" as DS  
+  
+component "MLFlow Tracking Server" as tracking  
+component "MinIO Storage" as storage  
+component "PostgreSQL Database" as database  
+component "Seldon Operator" as operator  
+component "Microservice" as FE  
+component "ML Model" as MLmodel  
+  
+DS --> tracking : Experiment  
+tracking --> database : Log Metadata  
+tracking --> storage : Log Artifacts
+DS --> operator : Trigger Deployment  
+operator --> storage : Pull Artifacts  
+operator --> MLmodel : Deploy
+FE --> MLmodel : Requests  
+  
+@enduml  
